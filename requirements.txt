@@ -1,0 +1,3 @@
+numpy>=1.16
+trimesh>=3.5.14
+tqdm>=1.45
