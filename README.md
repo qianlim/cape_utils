@@ -56,7 +56,7 @@ Software Copyright License for **non-commercial scientific research purposes**. 
 
 ### Citation:
 
-If you find the CAPE dataset useful in your research, please consider citing our work:
+If you find the CAPE dataset useful in your research, please consider citing the CAPE paper and ClothCap paper:
 
 ```bibtex
 @inproceedings{CAPE:CVPR:20,
@@ -66,6 +66,20 @@ If you find the CAPE dataset useful in your research, please consider citing our
   month = jun,
   year = {2020},
   month_numeric = {6}
+}
+```
+
+```bibtex
+@article{Pons-Moll:Siggraph2017,
+  title = {ClothCap: Seamless 4D Clothing Capture and Retargeting},
+  author = {Pons-Moll, Gerard and Pujades, Sergi and Hu, Sonny and Black, Michael},
+  journal = {ACM Transactions on Graphics, (Proc. SIGGRAPH)},
+  volume = {36},
+  number = {4},
+  year = {2017},
+  note = {Two first authors contributed equally},
+  crossref = {},
+  url = {http://dx.doi.org/10.1145/3072959.3073711}
 }
 ```
 
