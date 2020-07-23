@@ -102,7 +102,7 @@ class CAPE_utils():
             
             if self.mesh_lib == 'trimesh':
                 import trimesh
-                mm = trimesh.Trimesh(verts, self.faces)
+                mm = trimesh.Trimesh(verts, self.faces, process=False)
                 mm.export(join(mesh_dir, mesh_frame_name))
             elif self.mesh_lib == 'psbody.mesh':
                 from psbody.mesh import Mesh
