@@ -40,7 +40,7 @@ The extracted meshes are located in `<cape_root>/meshes/<subject>/<sequence_name
 ##### Render the extracted meshes into videos (requires psbody.mesh)
 
 ```python
-python cape_utils/dataset_utils.py --subj <subject> --seq_name <sequence_name> --option posed --vis
+python cape_utils/dataset_utils.py --subj <subject> --seq_name <sequence_name> --option posed --vis_seq
 ```
 
 The rendered videos are saved as `<cape_root>/visualization/<subject>/<sequence_name>_<option>.mp4`.
@@ -49,6 +49,12 @@ The rendered videos are saved as `<cape_root>/visualization/<subject>/<sequence_
 
 ```python
 python cape_utils/dataset_utils.py --subj <subject> --seq_name <sequence_name> --option posed --demo_disps
+```
+##### Visualize the raw scans along with their mesh registrations (requires psbody.mesh)
+If you have downloaded raw scans of the CAPE datset and organize them as `<cape_root>/raw_scans/<subject>/<sequence_name>/`, you can use the following command to visualize the alignment (overlapping) between the raw scans and their corresponding mesh registrations:
+
+```python
+python cape_utils/dataset_utils.py --subj <subject> --seq_name <sequence_name> --mesh_lib psbody.mesh --vis_scans
 ```
 
 ### License

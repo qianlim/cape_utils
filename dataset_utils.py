@@ -133,6 +133,35 @@ class CAPE_utils():
         # You can customize and use other tools to do the rendering
         from vis_mesh_seq import render_video
         render_video(mesh_dir, video_fn)
+
+    def vis_overlap(self, subj, seq_name, vis_num=5):
+        '''
+        If you have downloaded raw scan data of CAPE dataset and put them under 'raw_scans',
+        this function helps you randomly inspect if the scans and their corresponding alignments
+        are well aligned (overlaped).
+        '''
+        from psbody.mesh import Mesh, MeshViewer
+
+        aligned_dir = join(self.dataset_dir, 'sequences', subj, seq_name)
+        scan_dir = join(self.dataset_dir, 'raw_scans', subj, seq_name)
+
+        aligns_list = sorted(glob(join(aligned_dir, '*.npz')))
+        scans_list = sorted(glob(join(scan_dir, '*.ply')))
+        assert(len(aligns_list) == len(scans_list))
+
+        idx = np.random.permutation(len(scans_list))[:vis_num]
+
+        mv = MeshViewer()
+
+        for i in idx:
+            mscan = Mesh(filename=scans_list[i])
+            mscan = Mesh(mscan.v/1000., mscan.f) # scan data are in millimeters
+            mscan.set_vertex_colors(np.array([0,1,0]))
+            valign = np.load(aligns_list[i])['v_posed']
+            malign = Mesh(valign, self.faces)
+            malign.set_vertex_colors(np.array([1,0,0]))
+            mv.static_meshes = [mscan, malign]
+            input('Press any Enter to continue')
         
 
 if __name__ == '__main__':
@@ -145,8 +174,9 @@ if __name__ == '__main__':
     parser.add_argument('--mesh_lib', type=str, choices=['trimesh', 'psbody.mesh'],
                         help='your preferred mesh processing python library, trimesh or psbody.mesh', default='trimesh')
     parser.add_argument('--demo_disps', action='store_true', help='run the demo showing clothing displacements')
+    parser.add_argument('--vis_scans', action='store_true', help='show overlapping of scan data and corresponding mesh registrations')
     parser.add_argument('--extract', action='store_true', help='extract mesh files from the sequence, and render it into a video')
-    parser.add_argument('--vis', action='store_true', help='render the specified sequence into a video; if meshes of the sequences do not exist, will extract it first')
+    parser.add_argument('--vis_seq', action='store_true', help='render the specified sequence into a video; if meshes of the sequences do not exist, will extract it first')
 
     args = parser.parse_args()
 
@@ -158,7 +188,7 @@ if __name__ == '__main__':
 
     cape = CAPE_utils(args.mesh_lib, dataset_dir)
 
-    if args.vis:
+    if args.vis_seq:
         cape.visualize_sequence(args.subj, args.seq_name, option=args.option)
 
     if args.extract:
@@ -166,3 +196,6 @@ if __name__ == '__main__':
     
     if args.demo_disps:
         cape.demo(args.subj, args.seq_name)
+
+    if args.vis_scans:
+        cape.vis_overlap(args.subj, args.seq_name, vis_num=5)
