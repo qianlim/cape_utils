@@ -145,6 +145,11 @@ class CAPE_utils():
         aligned_dir = join(self.dataset_dir, 'sequences', subj, seq_name)
         scan_dir = join(self.dataset_dir, 'raw_scans', subj, seq_name)
 
+        if not exists(aligned_dir):
+            print('Missing mesh registrations for {} {}, please download first.\n'.format(subj, seq_name))
+        if not exists(scan_dir):
+            print('Missing raw scan data for {} {}, please download first.\n'.format(subj, seq_name))
+
         aligns_list = sorted(glob(join(aligned_dir, '*.npz')))
         scans_list = sorted(glob(join(scan_dir, '*.ply')))
         assert(len(aligns_list) == len(scans_list))
@@ -161,7 +166,7 @@ class CAPE_utils():
             malign = Mesh(valign, self.faces)
             malign.set_vertex_colors(np.array([1,0,0]))
             mv.static_meshes = [mscan, malign]
-            input('Press any Enter to continue')
+            input('Press Enter to continue')
         
 
 if __name__ == '__main__':
