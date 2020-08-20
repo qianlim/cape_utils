@@ -50,7 +50,7 @@ The rendered videos are saved as `<cape_root>/visualization/<subject>/<sequence_
 ```python
 python cape_utils/dataset_utils.py --subj <subject> --seq_name <sequence_name> --option posed --demo_disps
 ```
-##### Visualize the raw scans along with their mesh registrations (requires psbody.mesh)
+##### Visualize the raw scans along with their mesh registrations (requires [MPI-IS/mesh](https://github.com/MPI-IS/mesh))
 If you have downloaded raw scans of the CAPE datset and organize them as `<cape_root>/raw_scans/<subject>/<sequence_name>/`, you can use the following command to visualize the alignment (overlapping) between the raw scans and their corresponding mesh registrations:
 
 ```python
